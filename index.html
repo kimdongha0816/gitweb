@@ -36,8 +36,11 @@
         drawingBoard.width = drawingBoard.clientWidth; //11번 실제 캔버스 너비를 css와 일치시킴
         drawingBoard.height = drawingBoard.clientHeight; //12번 실제 캔버스 높이도 맞춰줌
 
-        let x = (drawingBoard.width-10)/2; //13번 사각형의 시작 위치 (가운데 정렬)
-        let y = (drawingBoard.height-10)/2;
+        let x = (drawingBoard.width-30); //13번 사각형의 시작 위치 (가운데 정렬)
+        let y = (drawingBoard.height-30);
+
+        let enemy1x = (drawingBoard.width-10)/2; //13번 사각형의 시작 위치 (가운데 정렬)
+        let enemy1y = (drawingBoard.height-10)/2;
 
         const moveAmount = 5; //14번 방향키 누를 때 이동할 거리(5픽셀)
 
@@ -58,15 +61,55 @@
             y = y - moveAmount;
         }
 
+        function move_limit(){
+            if (x<0){
+                x = 0;
+            }
+            if (x>590){
+                x=590;
+            }
+            if (y<0){
+                y=0;
+            }
+            if (y>590){
+                y=590;
+            }
+        }
+
+        function drawCoordinate(){
+            drawingPen.fillStyle = 'black';
+            drawingPen.font = '10px sans-serif';
+            drawingPen.fillText(`x: ${x} y: ${y}`, 10, 20);
+        }
+
         //16번 주인공(검정 사각형)을 그리는 함수
         function drawHero() {
             drawingPen.fillStyle = 'black';
             drawingPen.fillRect(x, y, 10, 10);
         }
+        //적소환 함수
+        function enemy1(){
+            drawingPen.fillStyle = 'red';
+            drawingPen.fillRect(enemy1x, enemy1y,20,20)
+        }
+        function collision1(){
+            if(x+10>enemy1x&&
+               x<enemy1x+20&&
+               y+10>enemy1y&&
+               y<enemy1y+20){
+                enemy1x=-30
+                enemy1y=-30
+            }
+        }
         //17번 화면을 지우고 주인공을 다시 그림
         function draw() {
+            drawingPen.fillText(`x: ${x} y: ${y}`, 10, 20);
             drawingPen.clearRect(0, 0, canvas.width, canvas.height); // 이전 그림 지우기
             drawHero(); // 새 위치에 주인공 그리기
+            enemy1();
+            move_limit();
+            drawCoordinate();
+            collision1();
         }
 
         //18 1초에 60번 반복해서 draw 함수 실행 (움직임을 부드럽게 보여줌)
@@ -86,20 +129,3 @@
     </script>
     </body>
     </html>
-    <!--
-    1) JavaScript란?
-      웹페이지에 버튼을 누르면 반응하거나 그림이 움직이는 등 다양한 동작을 넣어주는 프로그래밍 언어이다.
-    2) let이란?
-      자바스크립트에서 변수를 선언할 때 사용하는 명령어이다.
-    3) const란?
-      자바스크립트에서 값을 다시 바꿀 수 없는 변수를 선언할 때 사용하는 명령어이다.
-    4) 함수(function)란
-      자바스크립트에서 특정 작업을 수행하는 코드를 하나로 묶어 놓고 필요할 때 실행할 수 있게 하는 명령어이다.
-    5) document.addEventListener('keydown', (e) = > 문장의 의미는?
-      document.addEventListener('keydown', (e) => ...란 웹페이지에서 키보드를 누르면 지정한 기능이 실행되도록 하는 코드이다.
-    6) swich (e.key){
-          case 'ArrowLeft': moveLeft(); break; //여기에서 break; 작성하는 이유는?
-          break는 switch문을 끝내기 위해 사용한다.
-          커밋 확인용
-          -->
-          
