@@ -39,6 +39,9 @@
         let x = (drawingBoard.width-30); //13번 사각형의 시작 위치 (가운데 정렬)
         let y = (drawingBoard.height-30);
 
+        let enemy1x = (drawingBoard.width-10)/2; //13번 사각형의 시작 위치 (가운데 정렬)
+        let enemy1y = (drawingBoard.height-10)/2;
+
         const moveAmount = 5; //14번 방향키 누를 때 이동할 거리(5픽셀)
 
         //15번 각각의 방향으로 이동하는 함수들
@@ -84,14 +87,29 @@
             drawingPen.fillStyle = 'black';
             drawingPen.fillRect(x, y, 10, 10);
         }
+        //적소환 함수
+        function enemy1(){
+            drawingPen.fillStyle = 'red';
+            drawingPen.fillRect(enemy1x, enemy1y,20,20)
+        }
+        function collision1(){
+            if(x+10>enemy1x&&
+               x<enemy1x+20&&
+               y+10>enemy1y&&
+               y<enemy1y+20){
+                enemy1x=-30
+                enemy1y=-30
+            }
+        }
         //17번 화면을 지우고 주인공을 다시 그림
         function draw() {
             drawingPen.fillText(`x: ${x} y: ${y}`, 10, 20);
             drawingPen.clearRect(0, 0, canvas.width, canvas.height); // 이전 그림 지우기
             drawHero(); // 새 위치에 주인공 그리기
-
+            enemy1();
             move_limit();
             drawCoordinate();
+            collision1();
         }
 
         //18 1초에 60번 반복해서 draw 함수 실행 (움직임을 부드럽게 보여줌)
