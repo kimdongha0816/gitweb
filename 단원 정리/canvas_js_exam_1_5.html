@@ -135,6 +135,7 @@
             drawingPen.fillStyle = 'black';
             drawingPen.font = '10px sans-serif';
             drawingPen.fillText(`x: ${x} y: ${y}`, 10, 20);
+            drawingPen.fillText("01:04 초", 300, 20);
         }
 
         //16번 주인공(검정 사각형)을 그리는 함수
@@ -162,7 +163,6 @@
         }
         //17번 화면을 지우고 주인공을 다시 그림
         function draw() {
-            drawingPen.fillText(`x: ${x} y: ${y}`, 10, 20);
             drawingPen.clearRect(0, 0, canvas.width, canvas.height); // 이전 그림 지우기
             drawHero(); // 새 위치에 주인공 그리기
             enemy1();
