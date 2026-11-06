@@ -16,16 +16,65 @@
             display: block;
             margin: 0 auto;
         }
+        .pc-guide{
+            display: none;
+            margin-top: 10px;
+            font-size: 16px;
+            color: #333;
+            font-weight:bold;
+            
+        }
         @media (min-width: 769px) {
             #canvas{
                 width: 600px;
                 height: 600px;
+            }
+
+            .pc-guide{
+                display: block;
+            }
+        }
+
+        .controls{
+            display:none;
+            margin-top: 10px;
+        }
+        .controls button{
+            font-size:18px;
+            padding:10px 20px;
+            margin: 5px;
+        }
+
+        @media (max-width: 768px){
+            #canvas{
+                width:100vw;
+                height:100vw;
+            }
+            .controls {
+                display:block;
+            }
+            .pc-guide{
+                display: none;
             }
         }
     </style> <!-- 6번 화면 스타일(css) 적응 완료 -->
 </head>
 <body>
     <canvas id="canvas"></canvas> <!-- 7번 화면에 캔버스(그림판) 생성-->
+
+    <div class="controls">
+        <button id="leftBtn">←</button>
+        <button id="rightBtn">→</button>
+        <button id="upBtn">↑</button>
+        <button id="downBtn">↓</button>
+    </div>
+
+    <div class="pc-guide">
+        PC에서 접속했습니다. 방향키로 이동하세요.<br>
+        스마트폰은 접속 시 보이는 버튼으로 이동하세요.
+    </div>
+
+
     <script>
         // 8번 JavaScript 코드 실행 시작
 
@@ -126,6 +175,11 @@
                 case 'ArrowDown': moveDown(); break; //아래쪽 화살표 눌렀을 때
             }
         });
+
+        document.getElementById('leftBtn').addEventListener('click',moveLeft);
+        document.getElementById('rightBtn').addEventListener('click',moveRight);
+        document.getElementById('upBtn').addEventListener('click',moveUp);
+        document.getElementById('downBtn').addEventListener('click',moveDown);
     </script>
     </body>
     </html>
