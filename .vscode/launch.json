@@ -1,0 +1,14 @@
+{
+    // IntelliSense를 사용하여 가능한 특성에 대해 알아보세요.
+    // 기존 특성에 대한 설명을 보려면 가리킵니다.
+    // 자세한 내용을 보려면 https://go.microsoft.com/fwlink/?linkid=830387을(를) 방문하세요.
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "editor-browser",
+            "request": "launch",
+            "name": "Open canvas_js_exam_1_5.html",
+            "url": "file:///d%3A/%EA%B9%80%EB%8F%99%ED%95%98/web_gm/%EB%8B%A8%EC%9B%90%20%EC%A0%95%EB%A6%AC/canvas_js_exam_1_5.html"
+        }
+    ]
+}

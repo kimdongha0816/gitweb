@@ -87,9 +87,15 @@
 
         let x = (drawingBoard.width-30); //13번 사각형의 시작 위치 (가운데 정렬)
         let y = (drawingBoard.height-30);
+        //적 위치
+        let enemy = [];
 
-        let enemy1x = (drawingBoard.width-10)/2; //13번 사각형의 시작 위치 (가운데 정렬)
-        let enemy1y = (drawingBoard.height-10)/2;
+        for(let i = 0; i < 5; i++){
+            enemy[i] = {
+                x: Math.random() * 580,
+                y: Math.random() * 580
+            }
+}
 
         const moveAmount = 5; //14번 방향키 누를 때 이동할 거리(5픽셀)
 
@@ -139,15 +145,19 @@
         //적소환 함수
         function enemy1(){
             drawingPen.fillStyle = 'red';
-            drawingPen.fillRect(enemy1x, enemy1y,20,20)
+            for(let i = 0;i<5;i++){
+                drawingPen.fillRect(enemy[i].x, enemy[i].y,20,20)
+            }
         }
         function collision1(){
-            if(x+10>enemy1x&&
-               x<enemy1x+20&&
-               y+10>enemy1y&&
-               y<enemy1y+20){
-                enemy1x=-30
-                enemy1y=-30
+            for(let i = 0;i<5;i++){
+                 if(x+10>enemy[i].x&&
+                    x<enemy[i].x+20&&
+                    y+10>enemy[i].y&&
+                    y<enemy[i].y+20){
+                        enemy[i].x=-30;
+                        enemy[i].y=-30;
+                    }
             }
         }
         //17번 화면을 지우고 주인공을 다시 그림
