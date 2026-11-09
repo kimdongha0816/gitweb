@@ -135,7 +135,7 @@
             drawingPen.fillStyle = 'black';
             drawingPen.font = '10px sans-serif';
             drawingPen.fillText(`x: ${x} y: ${y}`, 10, 20);
-            drawingPen.fillText("01:04 초", 300, 20);
+            drawingPen.fillText(time.toFixed(2) + " 초", 300, 20);
         }
 
         //16번 주인공(검정 사각형)을 그리는 함수
@@ -161,6 +161,14 @@
                     }
             }
         }
+
+        let time=0;// 타이머에 사용할 변수 만들기
+
+        // 10밀리초마다 반복 실행하는 기능
+        setInterval(function() {
+            time += 0.01;  // time에 0.01초 더하기
+        }, 10); // 10밀리초마다 실행
+        
         //17번 화면을 지우고 주인공을 다시 그림
         function draw() {
             drawingPen.clearRect(0, 0, canvas.width, canvas.height); // 이전 그림 지우기
