@@ -57,6 +57,12 @@
                 display: none;
             }
         }
+        .retry {
+            position: absolute;
+            top: 550px;
+            left: 50%;
+        }
+
     </style> <!-- 6번 화면 스타일(css) 적응 완료 -->
 </head>
 <body>
@@ -74,13 +80,18 @@
         스마트폰은 접속 시 보이는 버튼으로 이동하세요.
     </div>
 
+    <div class="retry">
+        <button id="retryBtn">재도전</button>
+    </div>
+
 
     <script>
         // 8번 JavaScript 코드 실행 시작
 
         const drawingBoard = document.getElementById('canvas');//9번 캔버스 요소를 JS 변수로 가져오기
         const drawingPen = drawingBoard.getContext('2d');  //10번 2d로 그림 그릴 수 있는 도구 설정
-
+        const retryBtn = document.getElementById("retryBtn");// HTML에서 재도전 버튼을 찾아 변수에 저장
+        retryBtn.style.display = "none";
         // 캔버스 크기를 CSS와 맞춰줌 (중요!)
         drawingBoard.width = drawingBoard.clientWidth; //11번 실제 캔버스 너비를 css와 일치시킴
         drawingBoard.height = drawingBoard.clientHeight; //12번 실제 캔버스 높이도 맞춰줌
@@ -179,13 +190,38 @@
         drawingPen.fillStyle = "black";
         drawingPen.font = "40px sans-serif";
         drawingPen.textAlign = "center";
+        retryBtn.style.display = "block";
 
          drawingPen.fillText(
             "미션 해결! 시간: " + time.toFixed(2) + "초",
             canvas.width / 2,
             canvas.height / 2
             );
+            retryBtn.addEventListener("click", function() {
+
+         // 주인공 위치 초기화
+        x = drawingBoard.width - 30;
+        y = drawingBoard.height - 30;
+
+        // 적 5마리 위치 다시 정하기
+        for(let i = 0; i < 5; i++){
+            enemy[i].x = Math.random() * 580;
+            enemy[i].y = Math.random() * 580;
         }
+
+        // 남은 적 수와 시간 초기화
+        redCount = 5;
+        time = 0;
+
+        // 버튼 숨기기
+        retryBtn.style.display = "none";
+
+        // 글자 정렬 초기화
+        drawingPen.textAlign = "left";
+        });
+    }
+        
+
 
         //17번 화면을 지우고 주인공을 다시 그림
         function draw() {
