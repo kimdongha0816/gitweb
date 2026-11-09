@@ -168,15 +168,33 @@
 
         // 10밀리초마다 반복 실행하는 기능
         setInterval(function() {
-            time += 0.01;  // time에 0.01초 더하기
-        }, 10); // 10밀리초마다 실행
+        if (redCount != 0) {
+            time += 0.01;
+             }
+        }, 10);
 
         let redCount = 5; // 빨간색 사각형의 개수
-        
+
+        function gameClear() {
+        drawingPen.fillStyle = "black";
+        drawingPen.font = "40px sans-serif";
+        drawingPen.textAlign = "center";
+
+         drawingPen.fillText(
+            "미션 해결! 시간: " + time.toFixed(2) + "초",
+            canvas.width / 2,
+            canvas.height / 2
+            );
+        }
+
         //17번 화면을 지우고 주인공을 다시 그림
         function draw() {
             drawingPen.clearRect(0, 0, canvas.width, canvas.height); // 이전 그림 지우기
             drawHero(); // 새 위치에 주인공 그리기
+            if (redCount == 0) {
+                 gameClear();
+                return;
+                }
             enemy1();
             move_limit();
             drawCoordinate();
