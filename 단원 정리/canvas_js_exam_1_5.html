@@ -136,6 +136,7 @@
             drawingPen.font = '10px sans-serif';
             drawingPen.fillText(`x: ${x} y: ${y}`, 10, 20);
             drawingPen.fillText(time.toFixed(2) + " 초", 300, 20);
+            drawingPen.fillText("RED no " + redCount, 540, 20); //갯수표시 사각형
         }
 
         //16번 주인공(검정 사각형)을 그리는 함수
@@ -158,6 +159,7 @@
                     y<enemy[i].y+20){
                         enemy[i].x=-30;
                         enemy[i].y=-30;
+                        redCount--; // 빨간색 사각형 개수 1 감소
                     }
             }
         }
@@ -168,6 +170,8 @@
         setInterval(function() {
             time += 0.01;  // time에 0.01초 더하기
         }, 10); // 10밀리초마다 실행
+
+        let redCount = 5; // 빨간색 사각형의 개수
         
         //17번 화면을 지우고 주인공을 다시 그림
         function draw() {
