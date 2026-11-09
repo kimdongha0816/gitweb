@@ -103,8 +103,8 @@
 
         for(let i = 0; i < 5; i++){
             enemy[i] = {
-                x: Math.random() * 580,
-                y: Math.random() * 580
+                x: Math.random() * (drawingBoard.width - 20),
+                y: Math.random() * (drawingBoard.height - 20)
             }
 }
 
@@ -128,18 +128,10 @@
         }
 
         function move_limit(){
-            if (x<0){
-                x = 0;
-            }
-            if (x>590){
-                x=590;
-            }
-            if (y<0){
-                y=0;
-            }
-            if (y>590){
-                y=590;
-            }
+        if (x < 0) x = 0;
+        if (x > drawingBoard.width - 10) x = drawingBoard.width - 10;
+        if (y < 0) y = 0;
+        if (y > drawingBoard.height - 10) y = drawingBoard.height - 10;
         }
 
         function drawCoordinate(){
@@ -205,8 +197,8 @@
 
         // 적 5마리 위치 다시 정하기
         for(let i = 0; i < 5; i++){
-            enemy[i].x = Math.random() * 580;
-            enemy[i].y = Math.random() * 580;
+            enemy[i].x = Math.random() * (drawingBoard.width - 20);
+            enemy[i].y = Math.random() * (drawingBoard.height - 20);
         }
 
         // 남은 적 수와 시간 초기화
@@ -251,7 +243,6 @@
                 case 'ArrowDown': moveDown(); break; //아래쪽 화살표 눌렀을 때
             }
         });
-        //file:///D:/%EA%B9%80%EB%8F%99%ED%95%98/web_gm/%EB%8B%A8%EC%9B%90%20%EC%A0%95%EB%A6%AC/canvas_js_exam_1_5.html
         document.getElementById('leftBtn').addEventListener('click',moveLeft);
         document.getElementById('rightBtn').addEventListener('click',moveRight);
         document.getElementById('upBtn').addEventListener('click',moveUp);
