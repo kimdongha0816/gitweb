@@ -257,17 +257,20 @@
         // PC 방향키 조작
         //19번 키보드를 누르면 해당 방향으로 이동하게 함
 
-        document.getElementById('leftBtn').addEventListener('touchstart', () => keys.ArrowLeft = true);
-        document.getElementById('rightBtn').addEventListener('touchstart', () => keys.ArrowRight = true);
-        document.getElementById('upBtn').addEventListener('touchstart', () => keys.ArrowUp = true);
-        document.getElementById('downBtn').addEventListener('touchstart', () => keys.ArrowDown = true);
-
-        document.addEventListener('touchend', () => {
-            keys.ArrowLeft = false;
-            keys.ArrowRight = false;
-            keys.ArrowUp = false;
-            keys.ArrowDown = false;
+        document.addEventListener('keydown', (e) => {
+            // 눌린 키(e.key)가 무엇인지 확인해서 아래 명령 실행
+            switch (e.key){
+                case 'ArrowLeft': moveLeft(); break; // 왼쪽 화살표 눌렀을 떄
+                case 'ArrowRight': moveRight(); break; // 오른쪽 화살표 눌렀을 때
+                case 'ArrowUp': moveUp(); break;  // 위쪽 화살표 눌렀을 때
+                case 'ArrowDown': moveDown(); break; //아래쪽 화살표 눌렀을 때
+            }
         });
+        
+        document.getElementById('leftBtn').addEventListener('click',moveLeft);
+        document.getElementById('rightBtn').addEventListener('click',moveRight);
+        document.getElementById('upBtn').addEventListener('click',moveUp);
+        document.getElementById('downBtn').addEventListener('click',moveDown);
     </script>
     </body>
     </html>
