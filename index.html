@@ -257,17 +257,10 @@
         // PC 방향키 조작
         //19번 키보드를 누르면 해당 방향으로 이동하게 함
 
-        document.getElementById('leftBtn').addEventListener('touchstart', () => keys.ArrowLeft = true);
-        document.getElementById('rightBtn').addEventListener('touchstart', () => keys.ArrowRight = true);
-        document.getElementById('upBtn').addEventListener('touchstart', () => keys.ArrowUp = true);
-        document.getElementById('downBtn').addEventListener('touchstart', () => keys.ArrowDown = true);
-
-        document.addEventListener('touchend', () => {
-        keys.ArrowLeft = false;
-        keys.ArrowRight = false;
-        keys.ArrowUp = false;
-        keys.ArrowDown = false;
-        });
+        document.getElementById('leftBtn').addEventListener('click',moveLeft);
+        document.getElementById('rightBtn').addEventListener('click',moveRight);
+        document.getElementById('upBtn').addEventListener('click',moveUp);
+        document.getElementById('downBtn').addEventListener('click',moveDown);
     </script>
     </body>
     </html>
