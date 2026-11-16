@@ -122,7 +122,7 @@
         //적 위치
         let enemy = [];
 
-        for(let i = 0; i < 5; i++){
+        for(let i = 0; i < 10; i++){
             enemy[i] = {
                 x: Math.random() * (drawingBoard.width - 20),
                 y: Math.random() * (drawingBoard.height - 20)
@@ -178,12 +178,12 @@
         //적소환 함수
         function enemy1(){
             drawingPen.fillStyle = 'red';
-            for(let i = 0;i<5;i++){
+            for(let i = 0;i<10;i++){
                 drawingPen.fillRect(enemy[i].x, enemy[i].y,20,20)
             }
         }
         function collision1(){
-            for(let i = 0;i<5;i++){
+            for(let i = 0;i<10;i++){
                  if(x+10>enemy[i].x&&
                     x<enemy[i].x+20&&
                     y+10>enemy[i].y&&
@@ -204,7 +204,7 @@
              }
         }, 10);
 
-        let redCount = 5; // 빨간색 사각형의 개수
+        let redCount = 10; // 빨간색 사각형의 개수
 
         function gameClear() {
         drawingPen.fillStyle = "black";
@@ -224,13 +224,13 @@
         y = drawingBoard.height - 30;
 
         // 적 5마리 위치 다시 정하기
-        for(let i = 0; i < 5; i++){
+        for(let i = 0; i < 10; i++){
             enemy[i].x = Math.random() * (drawingBoard.width - 20);
             enemy[i].y = Math.random() * (drawingBoard.height - 20);
         }
 
         // 남은 적 수와 시간 초기화
-        redCount = 5;
+        redCount = 10;
         time = 0;
 
         // 버튼 숨기기
