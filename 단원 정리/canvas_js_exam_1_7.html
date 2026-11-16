@@ -121,21 +121,25 @@
         let y = (drawingBoard.height-30);
         //적 위치
         let enemy = [];
-        let enemyblue = [];
+        for(let i = 0; i < 15; i++){
 
-        for(let i = 0; i < 10; i++){
-            enemy[i] = {
-                x: Math.random() * (drawingBoard.width - 20),
-                y: Math.random() * (drawingBoard.height - 20)
+        enemy[i] = {
+            x: Math.floor(Math.random() * 24) * 25,
+            y: Math.floor(Math.random() * 24) * 25
+        };
+
+        for(let j = 0; j < i; j++){
+
+            if(enemy[i].x < enemy[j].x + 20 &&
+            enemy[i].x + 20 > enemy[j].x &&
+            enemy[i].y < enemy[j].y + 20 &&
+            enemy[i].y + 20 > enemy[j].y){
+
+                i--;
+                break;
             }
         }
-        for(let i = 0; i < 5; i++){
-            enemyblue[i] = {
-                x: Math.random() * (drawingBoard.width - 20),
-                y: Math.random() * (drawingBoard.height - 20)
-            }
-        }
-
+    }
 
         const moveAmount = 5; //14번 방향키 누를 때 이동할 거리(5픽셀)
 
@@ -206,25 +210,24 @@
 
         function enemy2 (){
             drawingPen.fillStyle = 'blue';
-            for(let i = 0;i<5;i++){
-                drawingPen.fillRect(enemyblue[i].x, enemyblue[i].y,20,20)
+            for(let i = 10;i<15;i++){
+                drawingPen.fillRect(enemy[i].x, enemy[i].y,20,20)
             }
         }
 
         function collision2(){
-            for(let i = 0;i<5;i++){
-                 if(x+10>enemyblue[i].x&&
-                    x<enemyblue[i].x+20&&
-                    y+10>enemyblue[i].y&&
-                    y<enemyblue[i].y+20){
-                        enemyblue[i].x=-30;
-                        enemyblue[i].y=-30;
+            for(let i = 10;i<15;i++){
+                 if(x+10>enemy[i].x&&
+                    x<enemy[i].x+20&&
+                    y+10>enemy[i].y&&
+                    y<enemy[i].y+20){
+                        enemy[i].x=-30;
+                        enemy[i].y=-30;
                         redCount=10;
                         for(let i = 0; i < 10; i++){
                         enemy[i].x = Math.random() * (drawingBoard.width - 20);
                         enemy[i].y = Math.random() * (drawingBoard.height - 20);
                         }
-                        
                     }
             }
         }
