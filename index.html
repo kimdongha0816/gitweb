@@ -38,11 +38,28 @@
         .controls{
             display:none;
             margin-top: 10px;
+            flex-direction: column;
+            align-items: center;
+        }
+        .controls .row {
+            display: flex;
+            justify-content: center;
         }
         .controls button{
-            font-size:18px;
-            padding:10px 20px;
+            font-size:24px;
+            padding:15px 20px;
             margin: 5px;
+            min-width: 60px;
+            border: none;
+            background-color: #333;
+            color: white;
+            touch-action: none;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        
+        .controls button:active{
+            background-color: #555;
         }
 
         @media (max-width: 768px){
@@ -69,10 +86,14 @@
     <canvas id="canvas"></canvas> <!-- 7번 화면에 캔버스(그림판) 생성-->
 
     <div class="controls">
-        <button id="leftBtn">←</button>
-        <button id="rightBtn">→</button>
-        <button id="upBtn">↑</button>
-        <button id="downBtn">↓</button>
+        <div class="row">
+            <button id="upBtn">↑</button>
+        </div>
+        <div class="row">
+            <button id="leftBtn">←</button>
+            <button id="downBtn">↓</button>
+            <button id="rightBtn">→</button>
+        </div>
     </div>
 
     <div class="pc-guide">
@@ -93,20 +114,32 @@
         const retryBtn = document.getElementById("retryBtn");// HTML에서 재도전 버튼을 찾아 변수에 저장
         retryBtn.style.display = "none";
         // 캔버스 크기를 CSS와 맞춰줌 (중요!)
-        drawingBoard.width = drawingBoard.clientWidth; //11번 실제 캔버스 너비를 css와 일치시킴
-        drawingBoard.height = drawingBoard.clientHeight; //12번 실제 캔버스 높이도 맞춰줌
+        drawingBoard.width = drawingBoard.clientWidth;  
+        drawingBoard.height = drawingBoard.clientHeight; 
 
         let x = (drawingBoard.width-30); //13번 사각형의 시작 위치 (가운데 정렬)
         let y = (drawingBoard.height-30);
         //적 위치
         let enemy = [];
+        for(let i = 0; i < 15; i++){
 
-        for(let i = 0; i < 5; i++){
-            enemy[i] = {
-                x: Math.random() * (drawingBoard.width - 20),
-                y: Math.random() * (drawingBoard.height - 20)
+        enemy[i] = {
+            x: Math.floor(Math.random() * 24) * 25,
+            y: Math.floor(Math.random() * 24) * 25
+        };
+
+        for(let j = 0; j < i; j++){
+
+            if(enemy[i].x < enemy[j].x + 20 &&
+            enemy[i].x + 20 > enemy[j].x &&
+            enemy[i].y < enemy[j].y + 20 &&
+            enemy[i].y + 20 > enemy[j].y){
+
+                i--;
+                break;
             }
-}
+        }
+    }
 
         const moveAmount = 5; //14번 방향키 누를 때 이동할 거리(5픽셀)
 
@@ -157,12 +190,13 @@
         //적소환 함수
         function enemy1(){
             drawingPen.fillStyle = 'red';
-            for(let i = 0;i<5;i++){
+            for(let i = 0;i<10;i++){
                 drawingPen.fillRect(enemy[i].x, enemy[i].y,20,20)
             }
         }
+        //충돌검사 1
         function collision1(){
-            for(let i = 0;i<5;i++){
+            for(let i = 0;i<10;i++){
                  if(x+10>enemy[i].x&&
                     x<enemy[i].x+20&&
                     y+10>enemy[i].y&&
@@ -170,6 +204,30 @@
                         enemy[i].x=-30;
                         enemy[i].y=-30;
                         redCount--; // 빨간색 사각형 개수 1 감소
+                    }
+            }
+        }
+
+        function enemy2 (){
+            drawingPen.fillStyle = 'blue';
+            for(let i = 10;i<15;i++){
+                drawingPen.fillRect(enemy[i].x, enemy[i].y,20,20)
+            }
+        }
+
+        function collision2(){
+            for(let i = 10;i<15;i++){
+                 if(x+10>enemy[i].x&&
+                    x<enemy[i].x+20&&
+                    y+10>enemy[i].y&&
+                    y<enemy[i].y+20){
+                        enemy[i].x=-30;
+                        enemy[i].y=-30;
+                        redCount=10;
+                        for(let i = 0; i < 10; i++){
+                        enemy[i].x = Math.random() * (drawingBoard.width - 20);
+                        enemy[i].y = Math.random() * (drawingBoard.height - 20);
+                        }
                     }
             }
         }
@@ -183,7 +241,7 @@
              }
         }, 10);
 
-        let redCount = 5; // 빨간색 사각형의 개수
+        let redCount = 10; // 빨간색 사각형의 개수
 
         function gameClear() {
         drawingPen.fillStyle = "black";
@@ -203,13 +261,13 @@
         y = drawingBoard.height - 30;
 
         // 적 5마리 위치 다시 정하기
-        for(let i = 0; i < 5; i++){
+        for(let i = 0; i < 10; i++){
             enemy[i].x = Math.random() * (drawingBoard.width - 20);
             enemy[i].y = Math.random() * (drawingBoard.height - 20);
         }
 
         // 남은 적 수와 시간 초기화
-        redCount = 5;
+        redCount = 10;
         time = 0;
 
         // 버튼 숨기기
@@ -242,9 +300,11 @@
                 return;
                 }
             enemy1();
+            enemy2();
             move_limit();
             drawCoordinate();
             collision1();
+            collision2();
             if (keys.ArrowLeft) moveLeft();
             if (keys.ArrowRight) moveRight();
             if (keys.ArrowUp) moveUp();
@@ -254,22 +314,22 @@
         //18 1초에 60번 반복해서 draw 함수 실행 (움직임을 부드럽게 보여줌)
         setInterval(draw, 16); 
 
-        // PC 방향키 조작
-        //19번 키보드를 누르면 해당 방향으로 이동하게 함
-        document.addEventListener('keydown', (e) => {
-            // 눌린 키(e.key)가 무엇인지 확인해서 아래 명령 실행
-            switch (e.key){
-                case 'ArrowLeft': moveLeft(); break; // 왼쪽 화살표 눌렀을 떄
-                case 'ArrowRight': moveRight(); break; // 오른쪽 화살표 눌렀을 때
-                case 'ArrowUp': moveUp(); break;  // 위쪽 화살표 눌렀을 때
-                case 'ArrowDown': moveDown(); break; //아래쪽 화살표 눌렀을 때
-            }
-        });
+        const setBtnHold = (key, isDown) => {
+            keys[key] = isDown;
+        }
 
-        document.getElementById('leftBtn').addEventListener('click',moveLeft);
-        document.getElementById('rightBtn').addEventListener('click',moveRight);
-        document.getElementById('upBtn').addEventListener('click',moveUp);
-        document.getElementById('downBtn').addEventListener('click',moveDown);
+        const bindButton = (id, key) => {
+            const btn = document.getElementById(id);
+            btn.addEventListener('touchstart', () => setBtnHold(key, true));
+            btn.addEventListener('touchend', () => setBtnHold(key, false));
+            btn.addEventListener('mousedown', () => setBtnHold(key, true));
+            btn.addEventListener('mouseup', () => setBtnHold(key, false));
+            btn.addEventListener('mouseleave', () => setBtnHold(key, false));
+        };
+        bindButton("leftBtn", "ArrowLeft");
+        bindButton("rightBtn", "ArrowRight");
+        bindButton("upBtn", "ArrowUp");
+        bindButton("downBtn", "ArrowDown");
     </script>
     </body>
-    </html>
+    </html> 
