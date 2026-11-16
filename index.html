@@ -124,8 +124,8 @@
         for(let i = 0; i < 15; i++){
 
         enemy[i] = {
-            x: Math.floor(Math.random() * 24) * 25,
-            y: Math.floor(Math.random() * 24) * 25
+            x: Math.floor(Math.random() * (drawingBoard.width - 20) / 25) * 25,
+            y: Math.floor(Math.random() * (drawingBoard.height - 20) / 25) * 25
         };
 
         for(let j = 0; j < i; j++){
