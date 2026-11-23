@@ -75,8 +75,10 @@
             }
         }
         .retry {
+            display: flex;
+            justify-content: center;
+            width: 100%;
             margin-top: 10px;
-            text-align: center;
         }
 
     </style> <!-- 6번 화면 스타일(css) 적응 완료 -->
@@ -270,26 +272,7 @@
             canvas.height / 2
             );
             retryBtn.addEventListener("click", function() {
-
-         // 주인공 위치 초기화
-        x = drawingBoard.width - 30;
-        y = drawingBoard.height - 30;
-
-        // 적 5마리 위치 다시 정하기
-        for(let i = 0; i < 10; i++){
-            enemy[i].x = Math.random() * (drawingBoard.width - 20);
-            enemy[i].y = Math.random() * (drawingBoard.height - 20);
-        }
-
-        // 남은 적 수와 시간 초기화
-        redCount = 10;
-        time = 0;
-
-        // 버튼 숨기기
-        retryBtn.style.display = "none";
-
-        // 글자 정렬 초기화
-        drawingPen.textAlign = "left";
+                location.reload();
         });
     }
         
