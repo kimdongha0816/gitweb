@@ -225,12 +225,28 @@
                         enemy[i].y=-30;
                         redCount=10;
                         for(let i = 0; i < 10; i++){
-                        enemy[i].x = Math.random() * (drawingBoard.width - 20);
-                        enemy[i].y = Math.random() * (drawingBoard.height - 20);
+
+                            enemy[i].x = Math.random() * (drawingBoard.width - 20);
+                            enemy[i].y = Math.random() * (drawingBoard.height - 20);
+
+                            for(let j = 0; j < 15; j++){
+                                if(i == j) continue;
+                                if(enemy[i].x < enemy[j].x + 20 &&
+                                enemy[i].x + 20 > enemy[j].x &&
+                                enemy[i].y < enemy[j].y + 20 &&
+                                enemy[i].y + 20 > enemy[j].y){
+
+                                i--;
+                                break;
+                                }
+                            }
                         }
                     }
+                }
             }
-        }
+                    
+                        //파란색 사각형에 닿으면 빨각색이랑 다른 사각형이
+                        //겹치는 문제가 생김 이거 고치고 이어서 해야함
 
         let time=0;// 타이머에 사용할 변수 만들기
 
