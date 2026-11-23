@@ -171,8 +171,8 @@
             drawingPen.fillStyle = 'black';
             drawingPen.font = '10px sans-serif';
             drawingPen.fillText(`x: ${x} y: ${y}`, 10, 20);
-            drawingPen.fillText(time.toFixed(2) + " 초", 300, 20);
-            drawingPen.fillText("RED no " + redCount, 540, 20); //갯수표시 사각형
+            drawingPen.fillText(time.toFixed(2) + " 초", drawingBoard.width / 2, 20);
+            drawingPen.fillText("RED no " + redCount, drawingBoard.width - 80, 20);
         }
 
         //16번 주인공(검정 사각형)을 그리는 함수
