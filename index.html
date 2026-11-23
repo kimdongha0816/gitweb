@@ -75,14 +75,27 @@
             }
         }
         .retry {
+            display: flex;
+            justify-content: center;
+            width: 100%;
             margin-top: 10px;
-            text-align: center;
+        }
+        #startBtn {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: clamp(20px, 5vw, 30px);
+            padding: 12px 30px;
+            z-index: 10;
         }
 
     </style> <!-- 6번 화면 스타일(css) 적응 완료 -->
 </head>
 <body>
     <canvas id="canvas"></canvas> <!-- 7번 화면에 캔버스(그림판) 생성-->
+
+    <button id="startBtn">START</button>
 
     <div class="controls">
         <div class="row">
@@ -111,6 +124,15 @@
         const drawingBoard = document.getElementById('canvas');//9번 캔버스 요소를 JS 변수로 가져오기
         const drawingPen = drawingBoard.getContext('2d');  //10번 2d로 그림 그릴 수 있는 도구 설정
         const retryBtn = document.getElementById("retryBtn");// HTML에서 재도전 버튼을 찾아 변수에 저장
+        const startBtn = document.getElementById("startBtn");
+
+        let gameStarted = false;
+
+        startBtn.addEventListener("click", function() {
+            gameStarted = true;
+            startBtn.style.display = "none";
+        });
+        
         retryBtn.style.display = "none";
         // 캔버스 크기를 CSS와 맞춰줌 (중요!)
         drawingBoard.width = drawingBoard.clientWidth;  
@@ -270,26 +292,7 @@
             canvas.height / 2
             );
             retryBtn.addEventListener("click", function() {
-
-         // 주인공 위치 초기화
-        x = drawingBoard.width - 30;
-        y = drawingBoard.height - 30;
-
-        // 적 5마리 위치 다시 정하기
-        for(let i = 0; i < 10; i++){
-            enemy[i].x = Math.random() * (drawingBoard.width - 20);
-            enemy[i].y = Math.random() * (drawingBoard.height - 20);
-        }
-
-        // 남은 적 수와 시간 초기화
-        redCount = 10;
-        time = 0;
-
-        // 버튼 숨기기
-        retryBtn.style.display = "none";
-
-        // 글자 정렬 초기화
-        drawingPen.textAlign = "left";
+                location.reload();
         });
     }
         
@@ -308,6 +311,9 @@
 
         //17번 화면을 지우고 주인공을 다시 그림
         function draw() {
+            if (gameStarted == false) {
+                return;
+            }
             drawingPen.clearRect(0, 0, canvas.width, canvas.height); // 이전 그림 지우기
             drawHero(); // 새 위치에 주인공 그리기
             if (redCount == 0) {
